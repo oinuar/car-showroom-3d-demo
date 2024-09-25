@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - latest
+
+jobs:
+  apiQA:
+    name: Quality assurance for WeMakeCars.Api
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Check
+        run: docker build --target=qa .
+
+  webQA:
+    name: Quality assurance for WeMakeCars.Web
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Check
+        run: docker build --target=qa WeMakeCars.Web/
+
+  publish:
+    name: Publish
+    needs: [apiQA, webQA]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Deploy
+        run: |
+          echo "TODO: deploy to some Kubernetes cluster"

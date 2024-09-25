@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: seed-sample-data-job
+
+spec:
+  ttlSecondsAfterFinished: 300
+  template:
+    spec:
+      containers:
+      - name: seed-sample-data-container
+        image: build
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash", "-c", "cd WeMakeCars.SampleData && DOTNET_USE_POLLING_FILE_WATCHER=1 dotnet run"]
+      restartPolicy: Never
+  backoffLimit: 1

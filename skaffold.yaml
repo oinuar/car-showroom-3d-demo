@@ -1,0 +1,28 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+
+metadata:
+  name: WeMakeCars
+
+build:
+  artifacts:
+  - image: build
+    context: .
+    docker:
+      target: build
+
+  - image: api
+    context: .
+
+  - image: web
+    context: WeMakeCars.Web
+
+  local:
+    push: false
+
+manifests:
+  rawYaml:
+    - ./k8s/minikube/*
+
+deploy:
+  kubectl: {}
