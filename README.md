@@ -45,7 +45,7 @@ Welcome to the **Car Showroom 3D Demo**! This repository showcases best practice
 - **Skaffold**: Streamlining local Kubernetes development with easy configuration and workflow management.
 
 ### Testing & CI/CD
-- **Test-Driven Development (TDD)**: Unit tests for core logic, integration tests for API, and snapshot tests for frontend.
+- **Test-Driven Development (TDD)**: Unit tests for core logic, integration tests for API, and component tests for frontend.
 - **xUnit**: Testing framework for C#/.NET code.
 - **Jest**: Testing framework for TypeScript/React components.
 - **GitHub Actions**: CI/CD pipelines for build, test, and deployment.
@@ -101,7 +101,7 @@ This project uses Skaffold for managing the Kubernetes environment. To set up Ku
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/car-showroom-3d-demo.git
+   git clone https://github.com/oinuar/car-showroom-3d-demo.git
    cd car-showroom-3d-demo
    ```
 
