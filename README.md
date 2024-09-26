@@ -9,7 +9,8 @@ Welcome to the **Car Showroom 3D Demo**! This repository showcases best practice
 - [Architecture](#architecture)
 - [Setup and Installation](#setup-and-installation)
   - [Pre-requisites](#pre-requisites)
-  - [Kubernetes Setup](#kubernetes-setup)
+  - [Minikube Setup](#minikube-setup)
+  - [Docker Desktop Setup](#docker-desktop-setup)
   - [Running Locally](#running-locally)
   - [Running Locally using Docker](#running-locally-using-docker)
 
@@ -41,7 +42,7 @@ Welcome to the **Car Showroom 3D Demo**! This repository showcases best practice
 - **PostgreSQL**: The relational database used to store car part data, user configurations, and more.
 
 ### Containerization and Orchestration
-- **Kubernetes**: Orchestration of application components using Minikube in development.
+- **Kubernetes**: Orchestration of application components using Minikube and Docker Desktop in development.
 - **Skaffold**: Streamlining local Kubernetes development with easy configuration and workflow management.
 
 ### Testing & CI/CD
@@ -56,7 +57,7 @@ Welcome to the **Car Showroom 3D Demo**! This repository showcases best practice
 The project follows a modular architecture:
 
 1. **Frontend (React + WebGL)**: A React app renders the car showroom with a 3D scene, allowing users to interact with different car parts. State is managed through Redux for scalability and consistency.
-   
+
 2. **Backend (ASP.NET Core API)**: A .NET 8 backend manages car parts and configurations, serving data to the frontend. The API follows RESTful principles and uses **PostgreSQL** as the main database for persisting part data and configurations.
 
 3. **Database (PostgreSQL)**: A PostgreSQL instance is used to store all car-related data, including user-selected configurations and available parts.
@@ -71,13 +72,13 @@ The project follows a modular architecture:
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [Node.js & npm](https://nodejs.org/en/) (for the frontend)
 - [Docker](https://www.docker.com/) (for containerization)
-- [Minikube](https://minikube.sigs.k8s.io/docs/start/) (for local Kubernetes)
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/) or [Docker Desktop](https://www.docker.com/products/docker-desktop/) (for local Kubernetes)
 - [Skaffold](https://skaffold.dev/) (for Kubernetes workflow management)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) (for Kubernetes management)
 - [PostgreSQL](https://www.postgresql.org/download/) (for running the database locally)
 
 
-### Kubernetes Setup
+### Minikube Setup
 
 This project uses Skaffold for managing the Kubernetes environment. To set up Kubernetes locally with Minikube:
 
@@ -97,6 +98,23 @@ This project uses Skaffold for managing the Kubernetes environment. To set up Ku
    You can use this IP to access the cluster.
 
 
+### Docker Desktop Setup
+
+1. **Start Docker Desktop and enable Kubernetes**
+
+2. **Install Ingress controller:**
+   ```bash
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.2.0/deploy/static/provider/cloud/deploy.yaml
+   ```
+
+3. **Review your cluster's IP address**:
+   ```bash
+   kubectl get ingress
+   ```
+
+   You can use address in the `ADDRESS` column to access the cluster.
+
+
 ### Running Locally using Kubernetes
 
 1. **Clone the repository**:
@@ -114,6 +132,7 @@ This project uses Skaffold for managing the Kubernetes environment. To set up Ku
 
 3. **Seed sample data**:
     ```bash
+    docker tag build:$(git rev-parse --short HEAD) build:latest
     kubectl apply -f k8s/seed-sample-data-job.yaml
     ```
 

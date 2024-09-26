@@ -22,7 +22,7 @@ build:
 
 manifests:
   rawYaml:
-    - ./k8s/minikube/*
+    - ./k8s/local/*
 
 deploy:
   kubectl: {}
